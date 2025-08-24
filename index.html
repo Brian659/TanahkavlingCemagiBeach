@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeri Tanah Kavling Mengening Cemagi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    header p {
+      margin: 0.2rem 0 0;
+      font-size: 1rem;
+    }
+
+    /* Compass */
+    .compass {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px auto;
+      width: 120px;
+      height: 120px;
+      border: 3px solid #4CAF50;
+      border-radius: 50%;
+      position: relative;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+    .compass span {
+      position: absolute;
+    }
+    .compass .n { top: 5px; left: 50%; transform: translateX(-50%); }
+    .compass .s { bottom: 5px; left: 50%; transform: translateX(-50%); }
+    .compass .e { right: 5px; top: 50%; transform: translateY(-50%); }
+    .compass .w { left: 5px; top: 50%; transform: translateY(-50%); }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .card p {
+      margin: 10px;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    /* Buttons */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px;
+    }
+    .btn {
+      background: #4CAF50;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #388e3c;
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      display: none;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .popup img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .popup:active {
+      display: none;
+    }
+    .popup span {
+      position: absolute;
+      top: 20px; right: 30px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    /* Responsive tweaks */
+    @media(max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .card img { height: 160px; }
+      .btn { font-size: 0.8rem; padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Galeri Tanah Kavling</h1>
+    <p>Mengening Cemagi Badung </p>
+  </header>
+
+  <!-- Compass -->
+  <div class="compass">
+    <span class="n">N</span>
+    <span class="s">S</span>
+    <span class="e">E</span>
+    <span class="w">W</span>
+  </div>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="card" onclick="openPopup(this)">
+      <img src="Frame 1 (1).webp" alt="Kavling 1">
+      <p>Kavling 1 - Tampak Atas</p>
+    </div>
+    <div class="card" onclick="openPopup(this)">
+      <img src="Frame 3.webp" alt="Kavling 2">
+      <p>Kavling 2 - Sisi Barat</p>
+    </div>
+    <div class="card" onclick="openPopup(this)">
+      <img src="Frame 4.webp" alt="Kavling 3">
+      <p>Kavling 3 - Sisi Timur</p>
+    </div>
+  </section>
+
+  <!-- Buttons -->
+  <div class="btn-container">
+    <button class="btn" onclick="window.location.href='https://wa.link/aqkq4q'">Contact Us</button>
+    <button class="btn" onclick="window.open('https://maps.app.goo.gl/sTnVXMwzMPQ7xav79')">Lihat Lokasi</button>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <span onclick="closePopup()">&times;</span>
+    <img id="popupImg" src="">
+  </div>
+
+  <footer>
+    © 2025 Galeri Interaktif — PT Manggala Manik Mas Property
+  </footer>
+
+  <script>
+    function openPopup(el) {
+      document.getElementById("popupImg").src = el.querySelector("img").src;
+      document.getElementById("popup").style.display = "flex";
+    }
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+  </script>
+</body>
+</html>
